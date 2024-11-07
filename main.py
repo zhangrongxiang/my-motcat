@@ -209,7 +209,7 @@ print("===="*30)
 print("Experiment Name:", exp_code)
 print("===="*30)
 
-args.results_dir = os.path.join(args.results_dir, args.which_splits, args.param_code, exp_code)
+args.results_dir = os.path.join(args.results_dir, args.which_splits, args.param_code, exp_code,args.miss)
 if not os.path.isdir(args.results_dir):
     os.makedirs(args.results_dir)
 print("logs saved at ", args.results_dir)
@@ -297,6 +297,7 @@ def main(args):
         print("Fold {}, C-Index: {:.4f}".format(k, c_index))
         result_cindex.append(c_index)
     result_cindex = np.array(result_cindex)
+
     save_index(args.results_dir + '/c-index.txt',"Avg C-Index of {} folds: {:.3f}, stdp: {:.3f}, stds: {:.3f}".format(
         len(summary_all_folds), result_cindex.mean(), result_cindex.std(), result_cindex.std(ddof=1)))
     print("Avg C-Index of {} folds: {:.3f}, stdp: {:.3f}, stds: {:.3f}".format(
