@@ -6,8 +6,9 @@ def save_pkl(filename, save_object):
 	pickle.dump(save_object, writer)
 	writer.close()
 def save_index(filename, content):
-    with open(filename, 'wb') as f:
+    with open(filename, 'w') as f:
         f.write(content)
+
 
 def load_pkl(filename):
 	loader = open(filename,'rb')
