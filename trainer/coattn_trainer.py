@@ -76,7 +76,7 @@ def train_loop_survival_coattn(epoch, model, loader, optimizer, n_classes, write
         writer.add_scalar('train/c_index', c_index_train, epoch)
 
 
-def validate_survival_coattn(cur, epoch, model, loader, n_classes, early_stopping=None, monitor_cindex=None, writer=None, loss_fn=None, reg_fn=None, lambda_reg=0., results_dir=None, args=None):
+def validate_survival_coattn(cur, epoch, model, loader, n_classes, early_stopping=None, monitor_cindex=None, writer=None, loss_fn=None, reg_fn=None, lambda_reg=0., results_dir=None,miss=None, args=None):
     model.eval()
     val_loss_surv, val_loss = 0., 0.
     all_risk_scores = np.zeros((len(loader)))
@@ -97,7 +97,15 @@ def validate_survival_coattn(cur, epoch, model, loader, n_classes, early_stoppin
         data_omic6 = data_omic6.type(torch.FloatTensor).cuda()
         label = label.type(torch.LongTensor).cuda()
         c = c.type(torch.FloatTensor).cuda()
-
+        if miss=='P':
+            data_WSI=torch.zeros_like(data_WSI).cuda()
+        elif miss=='G':
+            data_omic1 = torch.zeros_like(data_omic1).cuda()
+            data_omic2 = torch.zeros_like(data_omic2).cuda()
+            data_omic3 = torch.zeros_like(data_omic3).cuda()
+            data_omic4 = torch.zeros_like(data_omic4).cuda()
+            data_omic5 = torch.zeros_like(data_omic5).cuda()
+            data_omic6 = torch.zeros_like(data_omic6).cuda()
         slide_id = slide_ids.iloc[batch_idx]
 
         with torch.no_grad():

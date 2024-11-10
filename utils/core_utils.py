@@ -208,7 +208,7 @@ def train(datasets: tuple, cur: int, args: Namespace,miss=None):
             if args.model_type == 'mcat':
                 from trainer.coattn_trainer import train_loop_survival_coattn, validate_survival_coattn
                 train_loop_survival_coattn(epoch, model, train_loader, optimizer, args.n_classes, writer, loss_fn, reg_fn, args.lambda_reg, args.gc, args)
-                val_latest, c_index_val, stop = validate_survival_coattn(cur, epoch, model, val_loader, args.n_classes, early_stopping, monitor_cindex, writer, loss_fn, reg_fn, args.lambda_reg, args.results_dir, args)
+                val_latest, c_index_val, stop = validate_survival_coattn(cur, epoch, model, val_loader, args.n_classes, early_stopping, monitor_cindex, writer, loss_fn, reg_fn, args.lambda_reg, args.results_dir,miss, args)
             elif args.model_type == 'motcat':
                 if args.use_micro_batch:
                     from trainer.mb_trainer import train_loop_survival_coattn_mb, validate_survival_coattn_mb
@@ -217,7 +217,7 @@ def train(datasets: tuple, cur: int, args: Namespace,miss=None):
                 else:
                     from trainer.coattn_trainer import train_loop_survival_coattn, validate_survival_coattn
                     train_loop_survival_coattn(epoch, model, train_loader, optimizer, args.n_classes, writer, loss_fn, reg_fn, args.lambda_reg, args.gc, args)
-                    val_latest, c_index_val, stop = validate_survival_coattn(cur, epoch, model, val_loader, args.n_classes, early_stopping, monitor_cindex, writer, loss_fn, reg_fn, args.lambda_reg, args.results_dir, args)
+                    val_latest, c_index_val, stop = validate_survival_coattn(cur, epoch, model, val_loader, args.n_classes, early_stopping, monitor_cindex, writer, loss_fn, reg_fn, args.lambda_reg, args.results_dir,miss, args)
             else:
                 raise NotImplementedError
         else:
